@@ -14,5 +14,5 @@ jobs:
         run: |
          export body=$(curl 'https://api.open-meteo.com/v1/forecast?latitude=24.4764&longitude=54.3705&hourly=temperature_2m')
          export timezone=$(echo $body | jq '.timezone')
-         export temperature=$(echo $body | jq '.current_weather.temperature')
+         export temperature=$(echo $body | jq 'current_weather.temperature')
          gh pr comment $PR_NUMBER --body "In $timezone timezone, the temperature is $temperature" --repo $GITHUB_REPOSITORY
