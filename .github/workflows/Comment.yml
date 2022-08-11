@@ -12,7 +12,7 @@ jobs:
           PR_NUMBER: ${{ github.event.pull_request.number }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-         export body=$(curl 'https://api.open-meteo.com/v1/forecast?latitude=24.4764&longitude=54.3705&hourly=temperature_2m')
+         export body=$(curl 'https://api.open-meteo.com/v1/forecast?latitude=24.4764&longitude=54.3705&current_weather=true')
          export timezone=$(echo $body | jq '.timezone')
-         export temperature=$(echo $body | jq 'current_weather.temperature')
+         export temperature=$(echo $body | jq '.current_weather.temperature')
          gh pr comment $PR_NUMBER --body "In $timezone timezone, the temperature is $temperature" --repo $GITHUB_REPOSITORY
